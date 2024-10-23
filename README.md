@@ -1,4 +1,4 @@
-# Last Minute Preparation Guides of Computer Fundamentals
+# Last Minute Preparation Guides of Computer Science Fundamentals
 
 ## Table of Contents
 - [Introduction](#introduction)
