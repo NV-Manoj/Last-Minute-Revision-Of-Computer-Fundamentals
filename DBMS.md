@@ -16,10 +16,12 @@ Here's a concise last-minute revision guide for **DBMS (Database Management Syst
 7. [Indexing](#indexing)
 8. [Keys](#keys)
 9. [Joins](#joins)
-10. [ACID Properties](#acid-properties)
-11. [Database Security](#database-security)
-12. [Important SQL Queries](#important-sql-queries)
-
+10. [Views](#Views)
+11. [Procedures](#Procedures)
+12. [ACID Properties](#acid-properties)
+13. [Database Security](#database-security)
+14. [Important SQL Queries](#important-sql-queries)
+15. [Triggers (Optional)](#Triggers)
 ---
 
 ## 1. Basic Concepts
@@ -129,11 +131,205 @@ Here's a concise last-minute revision guide for **DBMS (Database Management Syst
    DELETE FROM table_name WHERE condition;
    ```
 
-5. **Join Query**:
+Here’s an extended section starting with **Joins**, followed by **Views** and **Procedures** in a structured format for your revision:
+
+---
+
+## 9. Joins
+
+Joins are used to combine rows from two or more tables based on a related column.
+
+### Types of Joins:
+
+1. **Inner Join**:
+   - Returns only the rows where there is a match in both tables.
    ```sql
-   SELECT column_name(s) FROM table1
-   INNER JOIN table2 ON table1.column = table2.column;
+   SELECT column_name(s)
+   FROM table1
+   INNER JOIN table2
+   ON table1.column = table2.column;
    ```
+
+2. **Left (Outer) Join**:
+   - Returns all rows from the left table and the matched rows from the right table. Unmatched rows from the right table will be NULL.
+   ```sql
+   SELECT column_name(s)
+   FROM table1
+   LEFT JOIN table2
+   ON table1.column = table2.column;
+   ```
+
+3. **Right (Outer) Join**:
+   - Returns all rows from the right table and the matched rows from the left table. Unmatched rows from the left table will be NULL.
+   ```sql
+   SELECT column_name(s)
+   FROM table1
+   RIGHT JOIN table2
+   ON table1.column = table2.column;
+   ```
+
+4. **Full (Outer) Join**:
+   - Returns all rows when there is a match in either table. Unmatched rows in both tables will show NULL.
+   ```sql
+   SELECT column_name(s)
+   FROM table1
+   FULL OUTER JOIN table2
+   ON table1.column = table2.column;
+   ```
+
+5. **Cross Join**:
+   - Returns the Cartesian product of the two tables, i.e., all combinations of rows.
+   ```sql
+   SELECT column_name(s)
+   FROM table1
+   CROSS JOIN table2;
+   ```
+
+6. **Self Join**:
+   - Joins a table with itself.
+   ```sql
+   SELECT a.column_name, b.column_name
+   FROM table_name a, table_name b
+   WHERE condition;
+   ```
+
+---
+
+## 10. Views
+
+### Definition:
+A **View** is a virtual table based on the result of a `SELECT` query. It doesn’t store data itself, but presents data from one or more tables.
+
+### Creating a View:
+```sql
+CREATE VIEW view_name AS
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+```
+
+### Using a View:
+You can use a view just like a regular table in `SELECT`, `INSERT`, `UPDATE`, and `DELETE` operations (with some limitations).
+
+```sql
+SELECT * FROM view_name;
+```
+
+### Dropping a View:
+```sql
+DROP VIEW view_name;
+```
+
+---
+
+## 11. Procedures
+
+### Definition:
+A **Stored Procedure** is a prepared SQL code that you can save and reuse. It is a set of SQL statements that perform a specific task.
+
+### Creating a Procedure:
+```sql
+CREATE PROCEDURE procedure_name (parameter1 datatype, parameter2 datatype, ...)
+BEGIN
+   -- SQL statements here
+   SELECT column_name FROM table_name WHERE condition;
+END;
+```
+
+### Example of a Simple Procedure:
+```sql
+CREATE PROCEDURE GetEmployeeSalary (IN emp_id INT)
+BEGIN
+   SELECT salary
+   FROM employees
+   WHERE employee_id = emp_id;
+END;
+```
+
+### Executing a Procedure:
+```sql
+CALL procedure_name (parameter1, parameter2, ...);
+```
+
+### Dropping a Procedure:
+```sql
+DROP PROCEDURE procedure_name;
+```
+
+### Handling Parameters:
+- **IN**: Input parameter (passed into the procedure).
+- **OUT**: Output parameter (returned from the procedure).
+- **INOUT**: Both input and output parameter.
+
+---
+## 12. Triggers
+**Triggers** are not mandatory in a database, but they can be very useful depending on the situation. Let’s break down the use and importance of triggers in the context of databases:
+
+## What are Triggers?
+
+A **Trigger** is a database object that is automatically executed or fired when certain events occur in the database. It can be set to trigger on actions like `INSERT`, `UPDATE`, or `DELETE` on a table.
+
+### Syntax of a Trigger:
+
+```sql
+CREATE TRIGGER trigger_name
+AFTER|BEFORE INSERT|UPDATE|DELETE
+ON table_name
+FOR EACH ROW
+BEGIN
+    -- SQL statements to execute
+END;
+```
+
+### Example of a Trigger:
+
+```sql
+CREATE TRIGGER before_employee_update
+BEFORE UPDATE
+ON employees
+FOR EACH ROW
+BEGIN
+   INSERT INTO audit_table(employee_id, old_salary, new_salary, update_time)
+   VALUES (OLD.employee_id, OLD.salary, NEW.salary, NOW());
+END;
+```
+
+In this example, the trigger runs **before** an update on the `employees` table and logs the changes in the `audit_table`.
+
+---
+
+## When are Triggers Useful?
+
+- **Auditing**: Automatically log changes (inserts, updates, deletes) made to a table for security or record-keeping purposes.
+- **Data Integrity**: Enforce complex business rules that can't easily be enforced with normal constraints (like foreign keys or check constraints).
+- **Automation**: Automatically execute some actions based on database changes (e.g., updating related records).
+- **Notifications**: Trigger events that notify other systems or users when critical data changes.
+
+---
+
+## Are Triggers Mandatory?
+
+No, **triggers are not mandatory**. Whether to use them depends on your specific use case. Here are some considerations:
+
+### **When to Use Triggers**:
+1. **Auditing and Logging**: If you need to track every change made to a table for historical records.
+2. **Complex Integrity Rules**: When enforcing rules that are hard to enforce using just constraints.
+3. **Automating Workflows**: Automatically perform tasks, such as updating related data, sending notifications, or cascading changes.
+
+### **When NOT to Use Triggers**:
+1. **Performance**: Triggers can slow down the database performance if they are not used wisely (e.g., multiple triggers on frequently updated tables).
+2. **Complexity**: Overusing triggers can make debugging or understanding data flows in your database more difficult.
+3. **Better Alternatives**: Some tasks that triggers perform can be done more efficiently through application-level logic or by using stored procedures.
+
+---
+
+### Conclusion:
+
+Triggers are **optional** but useful for certain situations where automation, auditing, or enforcing complex integrity rules is required. If your application can handle these cases efficiently without triggers (e.g., through application code or scheduled tasks), then triggers are not mandatory.
+
+
+
+This structure helps you easily navigate through **Joins**, **Views**,**Procedures** and **Triggers** in SQL, which are often crucial in interviews. These examples will allow you to quickly write or explain SQL queries involving these key concepts.
 
 ---
 
