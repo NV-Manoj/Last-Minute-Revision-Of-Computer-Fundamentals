@@ -1,6 +1,4 @@
-Here’s a **Last Minute Revision** in the same format for **Computer Networks** as a README file:
-
----
+ **Last Minute Revision Computer Networks** 
 
 # Computer Networks - Last Minute Revision
 
