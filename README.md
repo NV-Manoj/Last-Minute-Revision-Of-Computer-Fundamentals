@@ -1,39 +1,29 @@
 # Last Minute Preparation Guides of Computer Fundamentals
 
-
-
 ## Table of Contents
 - [Introduction](#introduction)
-- [Getting Started](#getting-started)
-- [Core Concepts](#core-concepts)
-- [Design Principles](#design-principles)
-- [Design Patterns](#design-patterns)
-- [Language Features](#language-features)
-- [Real-World Applications](#real-world-applications)
-- [Coding Exercises](#coding-exercises)
-- [Common Interview Questions](#common-interview-questions)
-- [Contributing](#contributing)
-- [License](#license)
+- [Operating System (OS)](#operating-system-os)
+- [Computer Networks (CN)](#computer-networks-cn)
+- [Database Management System (DBMS)](#database-management-system-dbms)
 
 ## Introduction
-## Helloo Aspiring learners, Here are The Quick revision Guides for Your Interview Preparation, Feel Free To Utilize it.
-
+Hello, aspiring learners! Here are the quick revision guides for your interview preparation. Feel free to utilize these resources to enhance your understanding and boost your confidence before your interviews.
 
 ## Operating System (OS)
-List of common interview Concepts related to OS that can help in interview preparation.
+A collection of essential concepts related to Operating Systems that can help in interview preparation.
 
-- [Operating System](./OperatingSystem.md)
+- [Operating System Concepts](./OperatingSystem.md)
 
 ## Computer Networks (CN)
-List of common interview Concepts related to OS that can help in interview preparation.
+A collection of essential concepts related to Computer Networks that can help in interview preparation.
 
-- [Computer Networks](./ComputerNetwork.md)
+- [Computer Networks Concepts](./ComputerNetwork.md)
 
 ## Database Management System (DBMS)
-List of common interview Concepts related to OS that can help in interview preparation.
+A collection of essential concepts related to Database Management Systems that can help in interview preparation.
 
-- [Database Management System](./DBMS.md)
-
+- [Database Management System Concepts](./DBMS.md)
 
 ---
 
+Feel free to explore each section for a concise overview of critical concepts, theories, and practical applications. Best of luck with your preparation!
